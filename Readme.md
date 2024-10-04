@@ -16,4 +16,9 @@ mismo u otros se inscriban. Cada persona llevaría un histórico de las veces qu
 Sharcar ayudará tanto **medio ambiente** como a mejorar el compañerismo y sentimiento de pertenencia de los empleados
 hacia su empresa.
 
+
+## Hito 1
+La descripicón del hito 1 se encuentra recogida en su propio documento [Hito 1](docs/hitos/hito1/Readme.md). Asimismo, 
+este hito presenta la configuración de GitHub y la licencia de la misma.
+
 [Configuración](docs/Config.md) | [Licencia](LICENSE)
