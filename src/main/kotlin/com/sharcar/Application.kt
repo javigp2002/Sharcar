@@ -1,6 +1,6 @@
-package com.example
+package com.sharcar
 
-import com.example.plugins.*
+import com.sharcar.plugins.*
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
