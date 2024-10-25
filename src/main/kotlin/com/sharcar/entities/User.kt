@@ -7,5 +7,5 @@ data class User(
     val surname: String,
     val password: String,
     val vehicles: List<Vehicle>,
-    val enterprise: Enterprise
+    val enterprise: Enterprise?
 )
