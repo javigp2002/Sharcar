@@ -11,8 +11,7 @@ class UserDatasource: UserRepository {
         return user
     }
 
-    override fun findById(id: Int): User? {
-        return users.find { it.id == id }
+    override fun findByEmail(email: String): User? {
+        return users.find { it.email == email }
     }
-
 }
