@@ -31,3 +31,10 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter:$junit_version")
 }
+
+tasks.test {
+    outputs.upToDateWhen { false }
+    testLogging {
+        events("passed", "failed", "skipped")
+    }
+}

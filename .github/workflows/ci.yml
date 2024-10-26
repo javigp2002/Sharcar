@@ -2,7 +2,7 @@ name: Ktor-test
 
 on:
   push:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run ktor test
-        run: ./gradlew test
+        run: ./gradlew test --warning-mode none
       
   
     

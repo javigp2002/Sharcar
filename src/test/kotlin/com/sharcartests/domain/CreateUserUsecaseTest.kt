@@ -37,9 +37,4 @@ class CreateUserUsecaseTest {
 
         assertEquals(user.email, newMail)
     }
-
-   @Test
-    fun `Check ci is working fine and this will fail`() {
-        assertTrue(false)
-    }
 }
