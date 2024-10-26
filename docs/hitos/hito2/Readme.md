@@ -56,7 +56,28 @@ del mismo es bastante extensa como se ha comentado previamente y la integración
 mismos desarrolladores. En definitiva, la decisión ha sido tomada por la curiosidad y las ganas de aprender algo nuevo.
 
 ## Elección y uso de la biblioteca de aserciones.
+La biblioteca de aserciones dentro del marco de ktor con kotlin y gradle se divide principalmente en la necesidad de una 
+libreria útil y fléxible que funcione bien dentro de nuestro framework para que sea también fácil de testear
+y utilizar en la integración continua. Las bibliotecas más populares y sencillas de utilizar en kotlin son:
 
+### JUnit
+JUnit es un marco de pruebas unitarias para el lenguaje de programación Java integrado para ktor de manera nativa. 
+Por otro lado, cuenta con una documentación básica y facilidades para crear pruebas unitarias con funciones de aserción
+para todo tipo de pruebas (BeforeTest, AfterTest...). Este no requiere de una configuración adicional para su uso.
+
+### Spek
+Ecosistema de pruebas para Kotlin. Spek es una biblioteca de pruebas de especificación para Kotlin que se basa en el
+marco de pruebas JUnit. Es básicamente una biblioteca que permite escribir pruebas en un estilo de especificación más
+fácil para leer para el humano.
+
+### Kotest
+Kotest es una biblioteca de pruebas para Kotlin que se cuenta con más de 300 aserciones y una documentación extensa para
+poder entender y utilizar la misma.
+
+### Elección
+La verdad es que kotlin con JUnit está muy bien integrado y es fácil de utilizar. Debido a que estamos empezando un proyecto
+y no queremos que se compliquen los archivos de configuración básicos, he decidido escoger JUnit por las 
+facilidades de integración y documentación que encontramos asociados a la propia página de ktor.
 
 ## Integración continua funcionando y correcta justificación del sistema elegido.
 
