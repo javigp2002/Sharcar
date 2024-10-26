@@ -1,0 +1,41 @@
+name: Ktor-test
+
+on:
+  push:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Setup
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+      # Cache
+      - name: Make gradlew executable 
+        run: chmod +x ./gradlew
+        
+      - name: Build ktor
+        run: ./gradlew assemble
+# Build
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checout@v4
+      
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+      # Cache
+      - name: Make gradlew executable 
+        run: chmod +x ./gradlew
+
+      - name: Run ktor test
+        run: ./gradlew test
+      
+  
+    
