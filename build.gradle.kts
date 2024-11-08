@@ -30,6 +30,9 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter:$junit_version")
+
+    testImplementation("org.mockito:mockito-core:5.14.2")
+
 }
 
 tasks.test {
