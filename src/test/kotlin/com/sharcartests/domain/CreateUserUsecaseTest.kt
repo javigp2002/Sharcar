@@ -1,27 +1,29 @@
 package com.sharcartests.domain
 
-import com.sharcar.datasource.UserDatasource
+import com.sharcar.domain.UserRepository
 import com.sharcar.entities.User
 import com.sharcar.usecases.user.CreateUserUsecase
 import org.junit.jupiter.api.assertThrows
+import org.mockito.Mock
+import org.mockito.Mockito.*
 import kotlin.test.Test
 import kotlin.test.*
+import org.mockito.ArgumentMatchers.any
 
 /*
 HABLAR DE TESTNG
  */
 
 class CreateUserUsecaseTest {
-    private val userRepository = UserDatasource()
+   @Mock
+    private val userRepository:UserRepository = mock()
     private val createUserUsecase = CreateUserUsecase(userRepository)
-
-    @BeforeTest
-    fun setUp() {
-        userRepository.save(User( "email", "name", "surname", "password", emptyList(), null))
-    }
 
     @Test
     fun `Checks that user is already created`() {
+        val newUser = User("email", "name", "surname", "password", emptyList(), null)
+
+        `when`(userRepository.findByEmail(newUser.email)).thenReturn(newUser)
 
         val exception = assertThrows<IllegalArgumentException> {
             createUserUsecase.run("email","email", "surname", "password")
@@ -33,7 +35,12 @@ class CreateUserUsecaseTest {
     @Test
     fun `Checks that USER is CREATED`() {
         val newMail = "Javi@gmail.com"
-        val user: User = createUserUsecase.run(email = newMail,"email", "surname", "password")
+        val newUser = User(newMail, "name", "surname", "password", emptyList(), null)
+
+        `when`(userRepository.findByEmail(newMail)).thenReturn(null)
+        `when`(userRepository.save(any(User::class.java) ?: newUser)).thenReturn(newUser)
+
+        val user: User = createUserUsecase.run(email = newMail, name = "name", surname = "surname", password = "password")
 
         assertEquals(user.email, newMail)
     }
