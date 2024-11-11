@@ -6,4 +6,5 @@ data class Vehicle(
     var brand: String,
     val model: String,
     val year: Int,
+    val maxPassengers: Int,
 )
