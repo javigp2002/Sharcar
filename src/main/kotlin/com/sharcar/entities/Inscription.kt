@@ -4,6 +4,7 @@ import java.util.*
 
 data class Inscription(
     val id: Int,
+    val enterprise: Enterprise,
     val departureTime: Date,
     val departurePlace: String,
     val arrivalPlace: Locations,
