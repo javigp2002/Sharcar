@@ -2,6 +2,7 @@ package com.sharcartests.domain
 
 import com.sharcar.domain.UserRepository
 import com.sharcar.entities.User
+import com.sharcar.entities.Vehicle
 import com.sharcar.usecases.user.CreateUserUsecase
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
@@ -21,7 +22,7 @@ class CreateUserUsecaseTest {
 
     @Test
     fun `Checks that user is already created`() {
-        val newUser = User("email", "name", "surname", "password", emptyList(), null)
+        val newUser = User("email", "name", "surname", "password", mutableListOf<Vehicle>(), null)
 
         `when`(userRepository.findByEmail(newUser.email)).thenReturn(newUser)
 
@@ -35,7 +36,7 @@ class CreateUserUsecaseTest {
     @Test
     fun `Checks that USER is CREATED`() {
         val newMail = "Javi@gmail.com"
-        val newUser = User(newMail, "name", "surname", "password", emptyList(), null)
+        val newUser = User(newMail, "name", "surname", "password", mutableListOf<Vehicle>(), null)
 
         `when`(userRepository.findByEmail(newMail)).thenReturn(null)
         `when`(userRepository.save(any(User::class.java) ?: newUser)).thenReturn(newUser)
