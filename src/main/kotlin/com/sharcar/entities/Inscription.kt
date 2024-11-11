@@ -9,6 +9,6 @@ data class Inscription(
     val departurePlace: String,
     val arrivalPlace: Locations,
     val driver: User,
-    val passengers: List<User>,
+    val passengers: MutableList<User>,
     val vehicle: Vehicle
 )

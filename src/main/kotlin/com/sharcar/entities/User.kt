@@ -5,6 +5,6 @@ data class User(
     val name: String,
     val surname: String,
     val password: String,
-    val vehicles: List<Vehicle>,
+    val vehicles: MutableList<Vehicle>,
     val enterprise: Enterprise?
 )
