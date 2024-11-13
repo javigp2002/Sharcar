@@ -1,4 +1,4 @@
-package com.sharcar.domain
+package com.sharcar.domain.repository.enterprise
 
 import com.sharcar.entities.Enterprise
 

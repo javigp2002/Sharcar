@@ -1,6 +1,6 @@
 package com.sharcar.datasource
 
-import com.sharcar.domain.InscriptionRepository
+import com.sharcar.domain.repository.inscription.InscriptionRepository
 import com.sharcar.entities.Inscription
 import com.sharcar.entities.User
 

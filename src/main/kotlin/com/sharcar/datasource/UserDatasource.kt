@@ -1,6 +1,6 @@
 package com.sharcar.datasource
 
-import com.sharcar.domain.UserRepository
+import com.sharcar.domain.repository.user.UserRepository
 import com.sharcar.entities.User
 
 class UserDatasource: UserRepository {

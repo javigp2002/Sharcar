@@ -1,6 +1,6 @@
 package com.sharcartests.domain
 
-import com.sharcar.domain.UserRepository
+import com.sharcar.domain.repository.user.UserRepository
 import com.sharcar.entities.User
 import com.sharcar.entities.Vehicle
 import com.sharcar.domain.usecases.user.CreateUserUsecase
@@ -17,7 +17,7 @@ HABLAR DE TESTNG
 
 class CreateUserUsecaseTest {
    @Mock
-    private val userRepository:UserRepository = mock()
+    private val userRepository: UserRepository = mock()
     private val createUserUsecase = CreateUserUsecase(userRepository)
 
     @Test

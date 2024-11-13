@@ -1,4 +1,4 @@
-package com.sharcar.domain
+package com.sharcar.domain.repository.inscription
 import com.sharcar.entities.Inscription
 import com.sharcar.entities.User
 

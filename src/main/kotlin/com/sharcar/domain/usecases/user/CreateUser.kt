@@ -1,6 +1,6 @@
 package com.sharcar.domain.usecases.user
 
-import com.sharcar.domain.UserRepository
+import com.sharcar.domain.repository.user.UserRepository
 import com.sharcar.entities.User
 import com.sharcar.entities.Vehicle
 

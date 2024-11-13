@@ -1,6 +1,6 @@
 package com.sharcar.datasource
 
-import com.sharcar.domain.EnterpriseRepository
+import com.sharcar.domain.repository.enterprise.EnterpriseRepository
 import com.sharcar.entities.Enterprise
 
 class EnterpriseDatasource: EnterpriseRepository {

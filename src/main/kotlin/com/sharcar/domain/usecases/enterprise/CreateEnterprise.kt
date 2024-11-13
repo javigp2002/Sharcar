@@ -1,6 +1,6 @@
 package com.sharcar.domain.usecases.enterprise
 
-import com.sharcar.domain.EnterpriseRepository
+import com.sharcar.domain.repository.enterprise.EnterpriseRepository
 import com.sharcar.entities.Enterprise
 
 class CreateEnterprise (private val enterpriseRepository: EnterpriseRepository){
