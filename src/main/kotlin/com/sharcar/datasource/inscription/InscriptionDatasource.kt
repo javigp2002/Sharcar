@@ -1,18 +1,17 @@
-package com.sharcar.datasource
+package com.sharcar.datasource.inscription
 
-import com.sharcar.domain.repository.inscription.InscriptionRepository
 import com.sharcar.entities.Inscription
 import com.sharcar.entities.User
 
-class InscriptionDatasource: InscriptionRepository {
+class InscriptionDatasource {
     private val inscriptions = mutableListOf<Inscription>()
 
-    override fun save(inscription: Inscription): Inscription {
+    fun save(inscription: Inscription): Inscription {
         inscriptions.add(inscription)
         return inscription
     }
 
-    override fun updatePassengerIntoInscription(inscriptionId: Int, passenger: User): Boolean {
+    fun updatePassengerIntoInscription(inscriptionId: Int, passenger: User): Boolean {
         val inscription = getInscriptionsById(inscriptionId) ?: return false
         if (inscription.vehicle.maxPassengers <= inscription.passengers.size)
             return false
@@ -20,11 +19,11 @@ class InscriptionDatasource: InscriptionRepository {
         return updatePassengerIntoInscription(inscription, passenger)
     }
 
-    override fun getInscriptionsOfEnterprises(enterpriseId: Int): MutableList<Inscription> {
+    fun getInscriptionsOfEnterprises(enterpriseId: Int): MutableList<Inscription> {
         return inscriptions.filter { it.enterprise.id == enterpriseId }.toMutableList()
     }
 
-    override fun getSeatsAvailable(inscriptionId: Int): Int {
+    fun getSeatsAvailable(inscriptionId: Int): Int {
         val inscription = getInscriptionsById(inscriptionId) ?: return 0
         return inscription.vehicle.maxPassengers - inscription.passengers.size
     }
