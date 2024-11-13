@@ -1,4 +1,4 @@
-package com.sharcar.usecases.model
+package com.sharcar.domain.usecases.model
 
 import com.sharcar.entities.Enterprise
 import com.sharcar.entities.Locations

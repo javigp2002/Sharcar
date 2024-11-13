@@ -1,4 +1,4 @@
-package com.sharcar.usecases.user
+package com.sharcar.domain.usecases.user
 
 import com.sharcar.domain.UserRepository
 import com.sharcar.entities.User

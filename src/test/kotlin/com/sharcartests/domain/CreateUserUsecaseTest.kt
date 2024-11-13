@@ -3,7 +3,7 @@ package com.sharcartests.domain
 import com.sharcar.domain.UserRepository
 import com.sharcar.entities.User
 import com.sharcar.entities.Vehicle
-import com.sharcar.usecases.user.CreateUserUsecase
+import com.sharcar.domain.usecases.user.CreateUserUsecase
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.Mockito.*

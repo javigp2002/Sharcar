@@ -2,7 +2,7 @@ package com.sharcartests.domain
 
 import com.sharcar.datasource.EnterpriseDatasource
 import com.sharcar.entities.Enterprise
-import com.sharcar.usecases.enterprise.CreateEnterprise
+import com.sharcar.domain.usecases.enterprise.CreateEnterprise
 import org.junit.jupiter.api.assertThrows
 import org.mockito.*
 import org.mockito.Mockito.mock
@@ -13,8 +13,8 @@ import kotlin.test.*
 
 class CreateEnterpriseTest{
     @Mock
-    private var enterpriseDatasourceMock: EnterpriseDatasource = mock();
-    val createEnterprise = CreateEnterprise(enterpriseDatasourceMock)
+    private var enterpriseDatasourceMock = mock<EnterpriseDatasource>()
+    private val createEnterprise = CreateEnterprise(enterpriseDatasourceMock)
 
      @Test
      fun `Checks that enterprise is already created`() {
