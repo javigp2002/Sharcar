@@ -20,8 +20,8 @@ class InscriptionDatasource: InscriptionRepository {
         return updatePassengerIntoInscription(inscription, passenger)
     }
 
-    override fun getInscriptionsOfEnterprises(enterpriseId: Int): Inscription? {
-        return inscriptions.find { it.enterprise.id == enterpriseId }
+    override fun getInscriptionsOfEnterprises(enterpriseId: Int): MutableList<Inscription> {
+        return inscriptions.filter { it.enterprise.id == enterpriseId }.toMutableList()
     }
 
     override fun getSeatsAvailable(inscriptionId: Int): Int {
