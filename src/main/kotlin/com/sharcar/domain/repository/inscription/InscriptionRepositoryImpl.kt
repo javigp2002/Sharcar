@@ -1,11 +1,12 @@
 package com.sharcar.domain.repository.inscription
 
 import com.sharcar.datasource.inscription.InscriptionDatasource
+import com.sharcar.domain.usecases.model.InscriptionModel
 import com.sharcar.entities.Inscription
 import com.sharcar.entities.User
 
 class InscriptionRepositoryImpl(private val datasource: InscriptionDatasource):  InscriptionRepository {
-    override fun save(inscription: Inscription): Inscription {
+    override fun save(inscription: InscriptionModel): Inscription {
         return datasource.save(inscription)
     }
 

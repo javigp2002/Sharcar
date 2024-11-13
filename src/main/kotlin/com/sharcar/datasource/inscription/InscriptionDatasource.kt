@@ -1,14 +1,27 @@
 package com.sharcar.datasource.inscription
 
+import com.sharcar.domain.usecases.model.InscriptionModel
 import com.sharcar.entities.Inscription
 import com.sharcar.entities.User
 
 class InscriptionDatasource {
     private val inscriptions = mutableListOf<Inscription>()
 
-    fun save(inscription: Inscription): Inscription {
-        inscriptions.add(inscription)
-        return inscription
+    fun save(inscription: InscriptionModel): Inscription {
+        val lastId = inscriptions.lastOrNull()?.id ?: 0
+        val inscriptionResult = Inscription(
+            lastId + 1,
+            inscription.enterprise,
+            inscription.departureTime,
+            inscription.departurePlace,
+            inscription.arrivalPlace,
+            inscription.driver,
+            inscription.passengers,
+            inscription.vehicle
+        )
+
+        inscriptions.add(inscriptionResult)
+        return inscriptionResult
     }
 
     fun updatePassengerIntoInscription(inscriptionId: Int, passenger: User): Boolean {
