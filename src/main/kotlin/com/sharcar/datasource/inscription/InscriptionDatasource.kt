@@ -54,4 +54,10 @@ class InscriptionDatasource {
         return inscriptions.find { it.id == inscriptionId }
     }
 
+    fun delete(inscriptionId: Int): Boolean {
+        val inscription = getInscriptionsById(inscriptionId) ?: return false
+        inscriptions.remove(inscription)
+        return true
+    }
+
 }

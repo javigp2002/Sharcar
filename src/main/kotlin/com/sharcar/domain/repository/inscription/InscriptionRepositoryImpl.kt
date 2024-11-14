@@ -10,6 +10,10 @@ class InscriptionRepositoryImpl(private val datasource: InscriptionDatasource): 
         return datasource.save(inscription)
     }
 
+    override fun delete(inscriptionId: Int): Boolean {
+        return datasource.delete(inscriptionId)
+    }
+
     override fun updatePassengerIntoInscription(inscriptionId: Int, passenger: User): Boolean {
         return datasource.updatePassengerIntoInscription(inscriptionId, passenger)
     }
