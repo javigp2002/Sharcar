@@ -21,4 +21,8 @@ class InscriptionRepositoryImpl(private val datasource: InscriptionDatasource): 
     override fun getSeatsAvailable(inscriptionId: Int): Int {
         return datasource.getSeatsAvailable(inscriptionId)
     }
+
+    override fun getInscriptionById(inscriptionId: Int): Inscription? {
+        return datasource.getInscriptionById(inscriptionId)
+    }
 }

@@ -50,4 +50,8 @@ class InscriptionDatasource {
         return true
     }
 
+    fun getInscriptionById(inscriptionId: Int): Inscription? {
+        return inscriptions.find { it.id == inscriptionId }
+    }
+
 }

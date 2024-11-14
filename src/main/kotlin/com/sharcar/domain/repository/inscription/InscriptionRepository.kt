@@ -9,4 +9,5 @@ interface InscriptionRepository {
     fun updatePassengerIntoInscription(inscriptionId: Int, passenger: User): Boolean
     fun getInscriptionsOfEnterprises(enterpriseId: Int): MutableList<Inscription>
     fun getSeatsAvailable(inscriptionId: Int): Int
+    fun getInscriptionById(inscriptionId: Int): Inscription?
 }
