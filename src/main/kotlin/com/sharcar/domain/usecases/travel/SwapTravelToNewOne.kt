@@ -7,9 +7,9 @@ import com.sharcar.entities.Inscription
 
 class SwapTravelToNewOne(private val repository: InscriptionRepository, private val userRepository: UserRepository) {
     fun run(newTravelId: Int, alreadyCreatedTravelId: Int, userEmail: String): SwapTravelToNewOneResult {
+        val newInscription = requireNotNull(repository.getInscriptionById(newTravelId)) { "New Inscription not found" }
         val lastInscription =
             requireNotNull(repository.getInscriptionById(alreadyCreatedTravelId)) { "Last Inscription not found" }
-        val newInscription = requireNotNull(repository.getInscriptionById(newTravelId)) { "New Inscription not found" }
         val user = requireNotNull(userRepository.findByEmail(userEmail)) { "User not found" }
 
         if (travelIsNotEmpty(newInscription))
