@@ -81,5 +81,69 @@ facilidades de integración y documentación que encontramos asociados a la prop
 
 ## Integración continua funcionando y correcta justificación del sistema elegido.
 
+Tener una integración continua es esencial para el desarrollo de un proyecto. Nos permite tener una serie de pruebas
+automáticas que se ejecutan cada vez que se realiza un cambio en el código. Para ello, Github nos permite diferentes
+sistemas para la integración continua a ejecutar según cuando se requiera.
+
+Para ello, tenemos que saber como poder ejecutar nuestros tests de forma local mediante un comando que será el que
+ejecute
+periodicamente nuestro sistema de integración continua. En nuestro caso, ktor con kotlin en gradle (mencionado
+anteriormente)
+permite ejecutar los mismos a través del shell que se genera en `./gradlew` que tiene unos comandos básicos para
+ejecutar
+
+```shell
+./gradlew assemble # Build
+./gradlew test
+```
+
+Una vez que conocemos esto, hay que elegir el sistema:
+
+### Circle CI
+
+Permite fácil integración entre **GitHub**, existen tutoriales para poder trabajar y construir pipelines
+sobre proyectos **Ktor**, se puede ejecutar imágenes **docker** para iniciar un contenedor y es **gratuito**
+Además, contiene fácil integración y la úlltima actualización fue en noviembre de 2024 (v4.7.0).
+
+### GitHub Actions
+
+Permite una gran integración para las pruebas que se configura de manera muy sencilla
+a través de un `.yml`. Asimismo, es **gratuito** y se puede ejecutar en cualquier sistema operativo y java.
+
+### Elección
+
+**Github Actions** es la mejor elección para nuestro trabajo de la asignatura debido a la
+versatilidad y facilidad de uso que nos ofrece. La integración es muy rápida y los recursos son muchos.
+Por otro lado, este sistema ya es conocido por el desarrollador lo que lo hace mucho más sencillo.
+
+### YML
+
+[YML](../../../.github/workflows/ci.yml) es un archivo de configuración. En este caso, se ha creado en un entorno de
+**ubuntu latest** aunque también se podría haber implementado con **alpine**. En este archivo,
+le vamos a permitir a gradlew ser ejecutado para, después realizar el `assemble` para comprobar que se realiza
+correctamente. Seguidamente, se ejecutarán los tests a través de `./gradlew test`. Todo esto se ha realizado
+usando el JDK 17 de Java de la versión de Oracle.
+
+### Ejecución
+
+A continuación, mostramos cómo se ejecutan los tests y la comprobación correcta de los mismos. Estos se realizan en cada
+push que se realiza en el repositorio.
+
+![FuncionamientoGHActions.png](FuncionamientoGHActions.png)
+
+Esto nos permite guiarnos sobre cada vez que se sube al repositorio datos y,
+poder añadirlos correctamente a la main sin problemas.
+
+![ValidateTestOnPush.png](ValidateTestOnPush.png)
+
 ## Correcta implementación y ejecución de los tests para testear algunos aspectos de la lógica de negocio de la aplicación a desarrollar.
-   
+
+- [x] Los test que se comprueban son unitarios, es decir, comprueban una lógica de negocio concreta.
+- [x] Los test utilizan `Mockito` para mockear toda aquella función que no se esté testeando realmente.
+- [x] Las funciones no testeadas son las que nosotros debemos controlar la entrada y salida. Comprobar si una variable
+  se mete en un array
+  no debe ser testeado, sino la interacción de la misma.
+- [x] Los test deben ser independientes entre sí, es decir, no deben depender de otros test para poder ejecutarse.
+- [ ] No se ha testeado todo el código aunque está en una arquitecura para hacerlo fácilmente
+- [x] Se ha implementado una `Clean Architecture` para discernir mejor la idea de **lógica de negocio**
+  ![GHTestingShow.png](GHTestingShow.png)
