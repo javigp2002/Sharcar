@@ -22,3 +22,6 @@ La descripicón del hito 1 se encuentra recogida en su propio documento [Hito 1]
 este hito presenta la configuración de GitHub y la licencia de la misma.
 
 [Configuración](docs/Config.md) | [Licencia](LICENSE)
+
+## [Hito 2](docs/hitos/hito2/Readme.md)
+
