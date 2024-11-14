@@ -18,13 +18,13 @@ class SwapTravelToNewOne(private val repository: InscriptionRepository, private 
         if (travelIsFull(lastInscription.id))
             return SwapTravelToNewOneResult(false, "Last Travel is full")
 
-        if (repository.delete(lastInscription.id)) {
-            val hasBeenUpdated = repository.updatePassengerIntoInscription(newTravelId, user)
-            val message: String? = if (!hasBeenUpdated) "Error updating new travel" else null
+        if (repository.delete(newInscription.id)) {
+            val hasBeenUpdated = repository.updatePassengerIntoInscription(alreadyCreatedTravelId, user)
+            val message: String? = if (!hasBeenUpdated) "Error updating last travel" else null
             return SwapTravelToNewOneResult(hasBeenUpdated, message)
         }
 
-        return SwapTravelToNewOneResult(false, "Error deleting last travel")
+        return SwapTravelToNewOneResult(false, "Error deleting new travel")
     }
 
     private fun travelIsFull(inscriptionId: Int): Boolean {
@@ -32,6 +32,6 @@ class SwapTravelToNewOne(private val repository: InscriptionRepository, private 
     }
 
     private fun travelIsNotEmpty(inscription: Inscription): Boolean {
-        return inscription.passengers.isEmpty()
+        return inscription.passengers.isNotEmpty()
     }
 }
