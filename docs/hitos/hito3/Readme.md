@@ -32,5 +32,46 @@ mismos desarrolladores. En definitiva, la decisión ha sido tomada por la curios
 
 ## Elección de librería de logs y registro de estos
 
+Ktor como venimos comentando es relativamente nuevo, por ello la elección de la librería de logs consiste en dos
+opciones:
+
+## Klogging
+
+Se encuentran actualmente en la version 0.8.0 y es capaz de poder funcionar de manera asíncrona teniendo una
+configuración sencilla a través de DSL o un json. Su principal tarea es poder crear una buena experiencia a los
+desarrolladores de C# y Java con unos logs estructurados. Sin embrgo, aún está a unos comienzos y no es una librería que
+pueda contar con una comunidad activa debido a su reciente creación y esto puede ser un problema de cara a enfrentarnos
+a problemas futuros.
+
+## SLF4J API
+
+Es la versión nativa de Ktor que actua como fachada de varios frameworks de logs como **Logback** o **Log4j**. Es una
+librería bastante estable donde en el archivo de configuración xml se elige, por ejemplo, el destino de los logs y
+permite
+una fácil integración dentro de nuestro framework. Dentro de esta versión debemos decidir los dos frameworks comentados:
+
+### Logback
+
+Es el sucesor directo de Log4j creado por Ceki Gülcü y está diseñado para ser más rápido,
+flexible y eficiente.
+Su integración es bastante sencilla y cuenta con bastante documentación y comunidad entre los desarrolladores java.
+Para añadirlo hay que:
+`implementation("ch.qos.logback:logback-classic:$logback_version")`
+
+### Log4j
+
+Log4j es una biblioteca de registros más antigua que sigue desarrollándose y con, quizás más documentación pero
+una comunidad menos activa. Su integración es bastante sencilla y su integración requiere unos pocos más de cambios
+en el archivo de configuración. Para añadirlo hay que "o use Log4j, you need to add the org.apache.logging.log4j:
+log4j-core
+and org.apache.logging.log4j:log4j-slf4j-impl artifacts."
+
+## Elección
+
+La elección por comodidad, comunidad y documentación en un cómputo global es de **SLF4J API** con **Logback**. Aunque
+Klogging es una librería bastante interesante y con un futuro prometedor. Por otro lado log4j es una librería
+interesante
+pero me gusta probar una implementación más nueva y donde se haya apostado por la flexibilidad y rapidez.
+
 ## Correcto funcionamiento de logs
 
