@@ -6,6 +6,7 @@ val koin_version: String = "4.0.0"
 plugins {
     kotlin("jvm") version "2.0.21"
     id("io.ktor.plugin") version "3.0.0"
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 group = "com.example"
