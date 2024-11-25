@@ -36,6 +36,8 @@ dependencies {
     // logback
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 //    // Koin Test features
 //    testImplementation("io.insert-koin:koin-test:$koin_version")
 //    // Koin for JUnit 4
