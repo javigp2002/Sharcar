@@ -32,6 +32,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:$junit_version")
     testImplementation("org.mockito:mockito-core:5.14.2")
 
+    implementation("io.ktor:ktor-server-status-pages:$ktor_version")
     // Koin for Kotlin apps
     implementation("io.insert-koin:koin-ktor:$koin_version")
     // logback
