@@ -2,7 +2,7 @@ package com.sharcar
 
 import com.sharcar.datasource.inscription.inscriptionDatasourceModule
 import com.sharcar.datasource.user.userDatasourceModule
-import com.sharcar.plugins.*
+import com.sharcar.api.*
 import inscriptionRepositoryModule
 import io.ktor.server.application.*
 import org.koin.ktor.plugin.Koin

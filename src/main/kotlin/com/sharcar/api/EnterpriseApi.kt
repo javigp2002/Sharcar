@@ -1,4 +1,4 @@
-package com.sharcar.plugins
+package com.sharcar.api
 
 import io.ktor.server.routing.*
 
