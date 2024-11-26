@@ -6,6 +6,7 @@ import com.sharcar.exception.SharCarBadRequestException
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.*
 import io.ktor.server.plugins.contentnegotiation.*
 import kotlinx.serialization.json.Json
 import org.koin.ktor.plugin.Koin
@@ -33,15 +34,18 @@ fun Application.module() {
 
     install(StatusPages) {
         exception<Throwable> { call, cause ->
-            if (cause is SharCarBadRequestException) {
+            if (cause is SharCarBadRequestException || cause is BadRequestException) {
                 call.respond(
                     HttpStatusCode.BadRequest, mapOf(
-                        "code" to 400,
                         "error" to cause.message
                     )
                 )
             } else {
-                call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
+                call.respond(
+                    HttpStatusCode.InternalServerError, mapOf(
+                        "error" to "Internal Server Error"
+                    )
+                )
             }
         }
     }
