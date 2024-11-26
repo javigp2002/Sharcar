@@ -4,6 +4,7 @@ import com.sharcar.domain.repository.user.UserRepository
 import com.sharcar.entities.User
 import com.sharcar.entities.Vehicle
 import com.sharcar.domain.usecases.user.CreateUserUsecase
+import com.sharcar.exception.SharCarBadRequestException
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.Mockito.*
@@ -26,11 +27,11 @@ class CreateUserUsecaseTest {
 
         `when`(userRepository.findByEmail(newUser.email)).thenReturn(newUser)
 
-        val exception = assertThrows<IllegalArgumentException> {
+        val exception = assertThrows<SharCarBadRequestException> {
             createUserUsecase.run("email","email", "surname", "password")
         }
 
-        assertEquals("User with email email already exists", exception.message)
+        assertEquals("User already exists", exception.message)
     }
 
     @Test
