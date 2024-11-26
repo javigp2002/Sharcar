@@ -10,8 +10,10 @@ fun Route.userRoutes(createUserUsecase: CreateUserUsecase) {
     route("/user") {
         post("/register") {
             val user = call.receive<CreateUserDto>()
-            call.respondText("user registered: ${user.email}")
+            call.application.environment.log.info("Creating user: ${user.email}")
+
             createUserUsecase.run(user.email, user.name, user.surname, user.password)
+
             call.respond(mapOf("email" to user.email))
         }
     }
