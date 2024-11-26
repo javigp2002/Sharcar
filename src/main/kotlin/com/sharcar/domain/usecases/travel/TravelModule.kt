@@ -4,6 +4,8 @@ import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
 import org.koin.dsl.module
 
 val travelModule = module {
+    includes(userRepositoryModule, inscriptionRepositoryModule)
+
     single { CreateTravelUsecase(get()) }
     single { AddPassengerToTravel(get(), get()) }
     single { SwapTravelToNewOne(get(), get()) }
