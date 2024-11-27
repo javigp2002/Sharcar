@@ -1,6 +1,6 @@
 package com.sharcartests.domain
 
-import com.sharcar.datasource.EnterpriseDatasource
+import com.sharcar.domain.repository.enterprise.EnterpriseRepositoryImpl
 import com.sharcar.entities.Enterprise
 import com.sharcar.domain.usecases.enterprise.CreateEnterprise
 import org.junit.jupiter.api.assertThrows
@@ -13,7 +13,7 @@ import kotlin.test.*
 
 class CreateEnterpriseTest{
     @Mock
-    private var enterpriseDatasourceMock = mock<EnterpriseDatasource>()
+    private var enterpriseDatasourceMock = mock<EnterpriseRepositoryImpl>()
     private val createEnterprise = CreateEnterprise(enterpriseDatasourceMock)
 
      @Test

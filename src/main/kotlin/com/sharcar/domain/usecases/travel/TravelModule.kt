@@ -6,7 +6,7 @@ import org.koin.dsl.module
 val travelModule = module {
     includes(userRepositoryModule, inscriptionRepositoryModule)
 
-    single { CreateTravelUsecase(get()) }
+    single { CreateTravelUsecase(get(), get(), get(), get()) }
     single { AddPassengerToTravel(get(), get()) }
     single { SwapTravelToNewOne(get(), get()) }
 }

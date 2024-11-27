@@ -1,11 +1,11 @@
 package com.sharcar.entities
 
-import java.util.*
+import java.time.LocalDateTime
 
 data class Inscription(
     val id: Int,
     val enterprise: Enterprise,
-    val departureTime: Date,
+    val departureTime: LocalDateTime,
     val departurePlace: String,
     val arrivalPlace: Locations,
     val driver: User,
