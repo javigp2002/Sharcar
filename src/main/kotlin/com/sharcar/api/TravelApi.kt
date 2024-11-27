@@ -13,8 +13,10 @@ fun Route.travelRoutes(createTravelUsecase: CreateTravelUsecase) {
 
             val travel = call.receive<CreateTravelDto>()
 
+            call.application.environment.log.info("Creating travel from ${travel.driverMail}")
             val createTravelResult: CreationInscriptionResult = createTravelUsecase.run(travel.toCreateTravelModel())
 
+            call.application.environment.log.info("Created travel from ${travel.driverMail}")
             call.respond(createTravelResult)
 
 
