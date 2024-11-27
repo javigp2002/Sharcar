@@ -34,10 +34,24 @@ fun Application.module() {
 
     install(StatusPages) {
         exception<Throwable> { call, cause ->
-            if (cause is SharCarBadRequestException || cause is BadRequestException) {
+            call.application.log.error(cause.message)
+            if (cause is SharCarBadRequestException) {
                 call.respond(
                     HttpStatusCode.BadRequest, mapOf(
                         "error" to cause.message
+                    )
+                )
+            } else if (cause is BadRequestException) {
+                call.respond(
+                    HttpStatusCode.BadRequest, mapOf(
+                        "error" to "Bad Request"
+                    )
+                )
+
+            } else if (cause is IllegalArgumentException) {
+                call.respond(
+                    HttpStatusCode.BadRequest, mapOf(
+                        "error" to "Bad Request on parameters"
                     )
                 )
             } else {
