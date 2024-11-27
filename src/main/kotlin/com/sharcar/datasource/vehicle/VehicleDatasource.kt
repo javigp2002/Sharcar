@@ -1,4 +1,4 @@
-package com.sharcar.datasource
+package com.sharcar.datasource.vehicle
 
 import com.sharcar.domain.repository.vehicle.VehicleRepository
 
