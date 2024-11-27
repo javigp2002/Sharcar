@@ -25,7 +25,7 @@ class CreateTravelUsecase(
 
         val savedId = inscriptionRepository.save(inscriptionModel)
 
-        return CreationInscriptionResult(savedId, true, alternative)
+        return CreationInscriptionResult(savedId.id, true, alternative)
 
     }
 

@@ -179,7 +179,7 @@ class CreateTravelTest {
         )
 
         val creationInscriptionResult = createTravel.run(travelModel)
-        assertEquals(inscription1.id, creationInscriptionResult.inscription?.id)
+        assertEquals(inscription1.id, creationInscriptionResult.inscriptionId)
     }
 
 }
