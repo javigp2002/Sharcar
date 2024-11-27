@@ -9,13 +9,15 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
 class AddPassengerTest {
-    private val currentTime = Date()
+    private val currentTime = LocalDateTime.now()
     private lateinit var vehicle1: Vehicle
     private lateinit var vehicle2: Vehicle
     private lateinit var location1: Locations

@@ -9,13 +9,14 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
 class SwapTravelTest {
-    private val currentTime = Date()
+    private val currentTime = LocalDateTime.now()
     private lateinit var vehicle1: Vehicle
     private lateinit var vehicle2: Vehicle
     private lateinit var location1: Locations
@@ -46,7 +47,7 @@ class SwapTravelTest {
             Inscription(
                 2,
                 enterprise1,
-                currentTime,
+                LocalDateTime.now(),
                 "Gasolinera Neptuno",
                 location1,
                 driver,
@@ -57,7 +58,7 @@ class SwapTravelTest {
             Inscription(
                 3,
                 enterprise1,
-                currentTime,
+                LocalDateTime.now(),
                 "Gasolinera Neptuno",
                 location1,
                 driver,

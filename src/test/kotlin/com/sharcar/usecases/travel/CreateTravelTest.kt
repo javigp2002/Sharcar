@@ -15,7 +15,7 @@ import kotlin.test.assertTrue
 
 
 class CreateTravelTest {
-    private val currentTime = Date()
+    private val currentTime = LocalDateTime.now()
     private lateinit var vehicle1: Vehicle
     private lateinit var vehicle2: Vehicle
     private lateinit var location1: Locations
@@ -36,7 +36,16 @@ class CreateTravelTest {
         enterprise1 = Enterprise(1, "Enterprise1", mutableListOf(location1))
         driver = User("javi@gmail.com", "driver", "Sarmiento", "pass", mutableListOf(vehicle1), enterprise1)
         inscription1 =
-            Inscription(1, enterprise1, currentTime, "Gasolinera Neptuno", location1, driver, mutableListOf(), vehicle1)
+            Inscription(
+                1,
+                enterprise1,
+                currentTime,
+                "Gasolinera Neptuno",
+                location1,
+                driver,
+                mutableListOf(),
+                vehicle1
+            )
         model = InscriptionModel(
             enterprise1,
             currentTime,
@@ -63,12 +72,11 @@ class CreateTravelTest {
     fun `Return alternative FALSE if not seats available on similar inscription`() {
         val newUser = User("antonio@gmail.com", "driver", "Sarmiento", "pass", mutableListOf(vehicle2), enterprise1)
 
-        val fiveMins = 5 * 60 * 1000
         val inscriptionAlreadyExists =
             Inscription(
                 2,
                 enterprise1,
-                Date(currentTime.time + fiveMins),
+                currentTime.plusMinutes(5),
                 "Gasolinera Neptuno",
                 location1,
                 newUser,
@@ -106,12 +114,11 @@ class CreateTravelTest {
     fun `Return alternative TRUE if similar inscription and able to seat`() {
         val newUser = User("antonio@gmail.com", "driver", "Sarmiento", "pass", mutableListOf(vehicle2), enterprise1)
 
-        val fiveMins = 5 * 60 * 1000
         val inscriptionAlreadyExists =
             Inscription(
                 2,
                 enterprise1,
-                Date(currentTime.time + fiveMins),
+                currentTime.plusMinutes(5),
                 "Gasolinera Neptuno",
                 location1,
                 newUser,
@@ -134,12 +141,11 @@ class CreateTravelTest {
     fun `Return new inscription created`() {
         val newUser = User("antonio@gmail.com", "driver", "Sarmiento", "pass", mutableListOf(vehicle2), enterprise1)
 
-        val fiveMins = 5 * 60 * 1000
         val inscriptionAlreadyExists =
             Inscription(
                 2,
                 enterprise1,
-                Date(currentTime.time + fiveMins),
+                currentTime.plusMinutes(5),
                 "Gasolinera Neptuno",
                 location1,
                 newUser,
