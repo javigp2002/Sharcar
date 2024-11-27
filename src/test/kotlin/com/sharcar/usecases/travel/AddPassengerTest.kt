@@ -4,6 +4,7 @@ import com.sharcar.domain.repository.inscription.InscriptionRepositoryImpl
 import com.sharcar.domain.repository.user.UserRepositoryImpl
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.entities.*
+import com.sharcar.models.AddPassengerToTravelModel
 import org.junit.Before
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
@@ -47,7 +48,7 @@ class AddPassengerTest {
         `when`(inscriptionRepository.getInscriptionById(enterprise1.id)).thenReturn(null)
 
         val exception = assertThrows<IllegalArgumentException> {
-            addPassenger.run(enterprise1.id, "javi@gmail.com")
+            addPassenger.run(AddPassengerToTravelModel(enterprise1.id, "javi@gmail.com"))
         }
 
         assertEquals("Travel with id ${enterprise1.id} does not exist", exception.message)
@@ -58,7 +59,7 @@ class AddPassengerTest {
         `when`(inscriptionRepository.getInscriptionById(enterprise1.id)).thenReturn(inscription1)
         `when`(inscriptionRepository.getSeatsAvailable(enterprise1.id)).thenReturn(0)
 
-        assertEquals(addPassenger.run(enterprise1.id, "javi@gmail.com").success, false)
+        assertEquals(addPassenger.run(AddPassengerToTravelModel(enterprise1.id, "javi@gmail.com")).success, false)
     }
 
     @Test
@@ -68,7 +69,7 @@ class AddPassengerTest {
         `when`(userRepository.findByEmail(passenger.email)).thenReturn(null)
 
         val exception = assertThrows<IllegalArgumentException> {
-            addPassenger.run(enterprise1.id, passenger.email)
+            addPassenger.run(AddPassengerToTravelModel(enterprise1.id, passenger.email))
         }
 
         assertEquals("User with email ${passenger.email} does not exist", exception.message)
@@ -81,7 +82,7 @@ class AddPassengerTest {
         `when`(userRepository.findByEmail(passenger.email)).thenReturn(passenger)
         `when`(inscriptionRepository.updatePassengerIntoInscription(enterprise1.id, passenger)).thenReturn(true)
 
-        assertEquals(addPassenger.run(enterprise1.id, passenger.email).success, true)
+        assertEquals(addPassenger.run(AddPassengerToTravelModel(enterprise1.id, passenger.email)).success, true)
     }
 
     @Test
@@ -91,7 +92,7 @@ class AddPassengerTest {
         `when`(userRepository.findByEmail(passenger.email)).thenReturn(passenger)
         `when`(inscriptionRepository.updatePassengerIntoInscription(enterprise1.id, passenger)).thenReturn(false)
 
-        assertEquals(addPassenger.run(enterprise1.id, passenger.email).success, false)
+        assertEquals(addPassenger.run(AddPassengerToTravelModel(enterprise1.id, passenger.email)).success, false)
     }
 
 }
