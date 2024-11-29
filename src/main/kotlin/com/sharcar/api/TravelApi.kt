@@ -30,16 +30,20 @@ fun Route.travelRoutes(
         post("/addPassenger") {
             val addPAssengerDto = call.receive<AddPassengerDto>()
 
+            call.application.environment.log.info("Adding passenger ${addPAssengerDto.passengerMail} to travel ${addPAssengerDto.travelId}")
             val addPassengerResult = addPassengerUsecase.run(addPAssengerDto.toAddPassengerModel())
 
+            call.application.environment.log.info("Adding passenger ${addPAssengerDto.passengerMail} was ${addPassengerResult.success}")
             call.respond(addPassengerResult)
         }
 
         post("/swapTravel") {
             val swapTravelDto = call.receive<SwapTravelDto>()
 
+            call.application.environment.log.info("Swapping travel ${swapTravelDto.alreadyCreatedTravelId} to ${swapTravelDto.newTravelId}")
             val swapTravelResult = swapTravelToNewOneUsecase.run(swapTravelDto.toSwapInscriptionModel())
 
+            call.application.environment.log.info("Swapping travel ${swapTravelDto.alreadyCreatedTravelId} to ${swapTravelDto.newTravelId} was ${swapTravelResult.success}")
             call.respond(swapTravelResult)
         }
     }
