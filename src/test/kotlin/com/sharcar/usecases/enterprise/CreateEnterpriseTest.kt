@@ -2,6 +2,7 @@ package com.sharcartests.domain
 
 import com.sharcar.domain.repository.enterprise.EnterpriseRepositoryImpl
 import com.sharcar.domain.usecases.enterprise.CreateEnterprise
+import com.sharcar.domain.usecases.model.EnterpriseResult
 import com.sharcar.entities.Enterprise
 import com.sharcar.models.CreateEnterpriseModel
 import org.junit.jupiter.api.assertThrows
@@ -10,6 +11,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 
 class CreateEnterpriseTest{
@@ -36,7 +38,8 @@ class CreateEnterpriseTest{
 
          val model = CreateEnterpriseModel(nif, "name")
 
-         val enterprise: Enterprise = createEnterprise.run(model)
-         assertEquals(enterprise.id, nif)
+         val result: EnterpriseResult = createEnterprise.run(model)
+         assertEquals(result.enterpriseId, nif)
+         assertTrue(result.success)
      }
 }
