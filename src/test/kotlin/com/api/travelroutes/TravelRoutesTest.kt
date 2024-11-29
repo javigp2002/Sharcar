@@ -1,7 +1,9 @@
 package com.api.travelroutes
 
+import com.sharcar.api.dto.AddPassengerDto
 import com.sharcar.api.dto.CreateTravelDto
 import com.sharcar.api.travelRoutes
+import com.sharcar.domain.usecases.model.AddPassengerResult
 import com.sharcar.domain.usecases.model.CreationInscriptionResult
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
@@ -120,4 +122,77 @@ class TravelRoutesTest {
         }
         assertEquals(HttpStatusCode.BadRequest, response.status)
     }
+
+    @Test
+    fun `ADD PASSENGER-Adds passenger and returns success`() = testApplication {
+        configureTestApplication()
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val dto = AddPassengerDto(1, "prueba@gmail.com")
+
+        `when`(mockAddPassengerToTravel.run(dto.toAddPassengerModel())).thenReturn(
+            AddPassengerResult(true)
+        )
+
+        val response = client.post("/travel/addPassenger") {
+            contentType(ContentType.Application.Json)
+            setBody(dto)
+        }
+        assertEquals(HttpStatusCode.OK, response.status)
+        val result = response.body<AddPassengerResult>()
+        assertEquals(AddPassengerResult(true), result)
+    }
+
+    @Test
+    fun `ADD PASSENGER-Everything ok but Travel Already created`() = testApplication {
+        configureTestApplication()
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val dto = AddPassengerDto(1, "prueba@gmail.com")
+
+        `when`(mockAddPassengerToTravel.run(dto.toAddPassengerModel())).thenReturn(
+            AddPassengerResult(false)
+        )
+
+        val response = client.post("/travel/addPassenger") {
+            contentType(ContentType.Application.Json)
+            setBody(dto)
+        }
+
+        assertEquals(HttpStatusCode.OK, response.status)
+        val result = response.body<AddPassengerResult>()
+        assertEquals(AddPassengerResult(false), result)
+    }
+
+    @Test
+    fun `ADD PASSENGER-DTO didnt match with operation`() = testApplication {
+        configureTestApplication()
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val response = client.post("/travel/create") {
+            contentType(ContentType.Application.Json)
+            setBody(
+                """
+                {
+                    "id": 1
+                }
+            """.trimIndent()
+            )
+        }
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+    }
+
+
 }
