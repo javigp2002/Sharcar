@@ -14,8 +14,10 @@ fun Route.enterpriseRoutes(
         post("/register") {
             val enterprise = call.receive<RegisterEnterpriseDto>()
 
+            call.application.environment.log.info("Registering enterprise with nif ${enterprise.nif}")
             val createEnterpriseResult: EnterpriseResult = createEnterpriseUsecase.run(enterprise.toEnterpriseModel())
 
+            call.application.environment.log.info("Registered ${createEnterpriseResult.success} enterprise with nif ${enterprise.nif}")
             call.respond(createEnterpriseResult)
         }
     }
