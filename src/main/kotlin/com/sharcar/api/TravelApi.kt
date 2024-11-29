@@ -5,6 +5,7 @@ import com.sharcar.api.dto.CreateTravelDto
 import com.sharcar.domain.usecases.model.CreationInscriptionResult
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
+import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -12,6 +13,7 @@ import io.ktor.server.routing.*
 fun Route.travelRoutes(
     createTravelUsecase: CreateTravelUsecase,
     addPassengerUsecase: AddPassengerToTravel,
+    swapTravelToNewOneUsecase: SwapTravelToNewOne
 ) {
     route("/travel") {
         post("/create") {
