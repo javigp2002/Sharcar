@@ -1,4 +1,4 @@
-package com.sharcar.datasource
+package com.sharcar.datasource.location
 
 import com.sharcar.domain.repository.location.LocationRepository
 

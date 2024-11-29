@@ -4,13 +4,15 @@ import com.sharcar.domain.repository.inscription.InscriptionRepository
 import com.sharcar.domain.repository.user.UserRepository
 import com.sharcar.domain.usecases.model.SwapTravelToNewOneResult
 import com.sharcar.entities.Inscription
+import com.sharcar.models.SwapInscriptionModel
 
 class SwapTravelToNewOne(private val repository: InscriptionRepository, private val userRepository: UserRepository) {
-    fun run(newTravelId: Int, alreadyCreatedTravelId: Int, userEmail: String): SwapTravelToNewOneResult {
-        val newInscription = requireNotNull(repository.getInscriptionById(newTravelId)) { "New Inscription not found" }
+    fun run(swapInscriptionModel: SwapInscriptionModel): SwapTravelToNewOneResult {
+        val newInscription =
+            requireNotNull(repository.getInscriptionById(swapInscriptionModel.newTravelId)) { "New Inscription not found" }
         val lastInscription =
-            requireNotNull(repository.getInscriptionById(alreadyCreatedTravelId)) { "Last Inscription not found" }
-        val user = requireNotNull(userRepository.findByEmail(userEmail)) { "User not found" }
+            requireNotNull(repository.getInscriptionById(swapInscriptionModel.alreadyCreatedTravelId)) { "Last Inscription not found" }
+        val user = requireNotNull(userRepository.findByEmail(swapInscriptionModel.userEmail)) { "User not found" }
 
         if (travelIsNotEmpty(newInscription))
             return SwapTravelToNewOneResult(false, "New Travel is not empty")
@@ -19,7 +21,8 @@ class SwapTravelToNewOne(private val repository: InscriptionRepository, private 
             return SwapTravelToNewOneResult(false, "Last Travel is full")
 
         if (repository.delete(newInscription.id)) {
-            val hasBeenUpdated = repository.updatePassengerIntoInscription(alreadyCreatedTravelId, user)
+            val hasBeenUpdated =
+                repository.updatePassengerIntoInscription(swapInscriptionModel.alreadyCreatedTravelId, user)
             val message: String? = if (!hasBeenUpdated) "Error updating last travel" else null
             return SwapTravelToNewOneResult(hasBeenUpdated, message)
         }

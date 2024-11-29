@@ -4,18 +4,19 @@ import com.sharcar.domain.repository.inscription.InscriptionRepositoryImpl
 import com.sharcar.domain.repository.user.UserRepositoryImpl
 import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
 import com.sharcar.entities.*
+import com.sharcar.models.SwapInscriptionModel
 import org.junit.Before
 import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
-import java.util.*
+import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 
 class SwapTravelTest {
-    private val currentTime = Date()
+    private val currentTime = LocalDateTime.now()
     private lateinit var vehicle1: Vehicle
     private lateinit var vehicle2: Vehicle
     private lateinit var location1: Locations
@@ -46,7 +47,7 @@ class SwapTravelTest {
             Inscription(
                 2,
                 enterprise1,
-                currentTime,
+                LocalDateTime.now(),
                 "Gasolinera Neptuno",
                 location1,
                 driver,
@@ -57,13 +58,14 @@ class SwapTravelTest {
             Inscription(
                 3,
                 enterprise1,
-                currentTime,
+                LocalDateTime.now(),
                 "Gasolinera Neptuno",
                 location1,
                 driver,
                 mutableListOf(passenger, passenger),
                 vehicle1
             )
+
     }
 
     @Test
@@ -71,7 +73,7 @@ class SwapTravelTest {
         `when`(inscriptionRepository.getInscriptionById(inscriptionEmpty.id)).thenReturn(null)
 
         val exception = assertThrows<IllegalArgumentException> {
-            swapTravel.run(inscriptionEmpty.id, inscriptionFull.id, passenger.email)
+            swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionFull.id, passenger.email))
         }
 
         assertEquals("New Inscription not found", exception.message)
@@ -83,7 +85,7 @@ class SwapTravelTest {
         `when`(inscriptionRepository.getInscriptionById(inscriptionFull.id)).thenReturn(null)
 
         val exception = assertThrows<IllegalArgumentException> {
-            swapTravel.run(inscriptionEmpty.id, inscriptionFull.id, passenger.email)
+            swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionFull.id, passenger.email))
         }
 
         assertEquals("Last Inscription not found", exception.message)
@@ -97,7 +99,7 @@ class SwapTravelTest {
 
 
         val exception = assertThrows<IllegalArgumentException> {
-            swapTravel.run(inscriptionEmpty.id, inscriptionFull.id, passenger.email)
+            swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionFull.id, passenger.email))
         }
 
         assertEquals("User not found", exception.message)
@@ -110,7 +112,7 @@ class SwapTravelTest {
         `when`(userRepository.findByEmail(passenger.email)).thenReturn(passenger)
 
 
-        val result = swapTravel.run(inscriptionHalf.id, inscriptionFull.id, passenger.email)
+        val result = swapTravel.run(SwapInscriptionModel(inscriptionHalf.id, inscriptionFull.id, passenger.email))
         assertEquals(result.success, false)
     }
 
@@ -121,7 +123,7 @@ class SwapTravelTest {
         `when`(userRepository.findByEmail(passenger.email)).thenReturn(passenger)
         `when`(inscriptionRepository.getSeatsAvailable(inscriptionFull.id)).thenReturn(0)
 
-        val result = swapTravel.run(inscriptionEmpty.id, inscriptionFull.id, passenger.email)
+        val result = swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionFull.id, passenger.email))
         assertEquals(result.success, false)
     }
 
@@ -133,7 +135,7 @@ class SwapTravelTest {
         `when`(inscriptionRepository.getSeatsAvailable(inscriptionHalf.id)).thenReturn(2)
         `when`(inscriptionRepository.delete(inscriptionEmpty.id)).thenReturn(false)
 
-        val result = swapTravel.run(inscriptionEmpty.id, inscriptionHalf.id, passenger.email)
+        val result = swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionHalf.id, passenger.email))
         assert(!result.success && result.message == "Error deleting new travel")
     }
 
@@ -146,7 +148,7 @@ class SwapTravelTest {
         `when`(inscriptionRepository.delete(inscriptionEmpty.id)).thenReturn(true)
         `when`(inscriptionRepository.updatePassengerIntoInscription(inscriptionHalf.id, passenger)).thenReturn(false)
 
-        val result = swapTravel.run(inscriptionEmpty.id, inscriptionHalf.id, passenger.email)
+        val result = swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionHalf.id, passenger.email))
         assert(!result.success && result.message == "Error updating last travel")
     }
 
@@ -159,7 +161,7 @@ class SwapTravelTest {
         `when`(inscriptionRepository.delete(inscriptionEmpty.id)).thenReturn(true)
         `when`(inscriptionRepository.updatePassengerIntoInscription(inscriptionHalf.id, passenger)).thenReturn(true)
 
-        val result = swapTravel.run(inscriptionEmpty.id, inscriptionHalf.id, passenger.email)
+        val result = swapTravel.run(SwapInscriptionModel(inscriptionEmpty.id, inscriptionHalf.id, passenger.email))
         assert(result.success && result.message == null)
     }
 
