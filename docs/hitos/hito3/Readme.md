@@ -28,8 +28,6 @@ una nueva herramienta que me suscita bastante curiosidad y me gustaría aprender
 del mismo es bastante extensa como se ha comentado previamente y la integración con Kotlin es total debido a que son los
 mismos desarrolladores. En definitiva, la decisión ha sido tomada por la curiosidad y las ganas de aprender algo nuevo.
 
-## Diseño de la API, test y documentación
-
 ## Elección de librería de logs y registro de estos
 
 Ktor como venimos comentando es relativamente nuevo, por ello la elección de la librería de logs consiste en dos
@@ -73,5 +71,46 @@ Klogging es una librería bastante interesante y con un futuro prometedor. Por o
 interesante
 pero me gusta probar una implementación más nueva y donde se haya apostado por la flexibilidad y rapidez.
 
+## Diseño de la API, test y documentación
+
+Los test de la API ya están siendo ejecutados en cada uno de los commits que se realizan. Asimismo, como se ha
+especificado
+en otros hitos, nostors estamos aplicando una _clean architecture_ (mientras se aprende a realizarla correctamente con
+los
+fallos oportunos) donde aplicamos el _single responsability_ y la división por capas. Cómo podemos ver en el código
+la api ejecuta unos casos de uso, que tienen sus propios tests, y nosotros vemos si la api responde bien y con los
+resultados
+esperados.
+
+Por otro lado, ahora mismo no se ha entrado mucho en el funcionamiento integro de la api debido a que la siguiente parte
+se va a basar en tener ya una base de datos con los que poder trabajar realmente. Esto afectará a la capa de datasource
+que,
+gracias al patrón de diseño _repository_ podemos gestionar de manera sencilla aunque pueda llegar a afectar si se decide
+cambiar o ampliar algún campo de la base de datos, modificando así la capa de dominio.
+
+Actualmente, cada capa que depende de un servicio externo (como la capa de datasource) recibe un DTO que al fin y al
+cabo
+suele ser un JSON con strings o ints que luego trasnformamos. Esto lo hacemos así para poder agregar a la capa de
+dominio
+un modelo sólido donde no se tengan que comprobar datos como si realmente un "email" tiene el patrón que debería, esto
+será
+gestionado por el propio DTO.
+
+Los cambios que se realizan gradualmente afectan a hitos anteriores debido a que no se ha hecho un procedimiento
+demasiado
+exhaustivo para poder saber y coordinar tanto los datos que queremos guardar y los que se van a enviar al front.
+
 ## Correcto funcionamiento de logs
+
+Se ha subido el [logger](/logFile.log) que ha ido saliendo a través de la realización del milestone. Sin embargo, como
+se puede apreciar
+no solo tenemos los que hemos puesto nosotros que están en dos puntos fundamentales:
+
+- **Status de la aplicación**: donde KTOR maneja las excepciones y, por tanto, podemos guardar la excepción tal cual
+  ocurrió
+  mientras que podemos informar al front de que ha ocurrido un error sin especificar si no queremos el porqué.
+- **API**: Mostramos a grandes rasgos que se está ejecutando de manera que podremos saber si hay algún error donde
+  empezó.
+
+
 
