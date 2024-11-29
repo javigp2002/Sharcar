@@ -2,9 +2,11 @@ package com.api.travelroutes
 
 import com.sharcar.api.dto.AddPassengerDto
 import com.sharcar.api.dto.CreateTravelDto
+import com.sharcar.api.dto.SwapTravelDto
 import com.sharcar.api.travelRoutes
 import com.sharcar.domain.usecases.model.AddPassengerResult
 import com.sharcar.domain.usecases.model.CreationInscriptionResult
+import com.sharcar.domain.usecases.model.SwapTravelToNewOneResult
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
 import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
@@ -174,6 +176,76 @@ class TravelRoutesTest {
 
     @Test
     fun `ADD PASSENGER-DTO didnt match with operation`() = testApplication {
+        configureTestApplication()
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val response = client.post("/travel/create") {
+            contentType(ContentType.Application.Json)
+            setBody(
+                """
+                {
+                    "id": 1
+                }
+            """.trimIndent()
+            )
+        }
+        assertEquals(HttpStatusCode.BadRequest, response.status)
+    }
+
+    @Test
+    fun `SWAP TRAVEL-Returns false if something is not ok`() = testApplication {
+        configureTestApplication()
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val dto = SwapTravelDto(1, 2, "usuario@gmail.com")
+
+        `when`(mockSwapTravelToNewOne.run(dto.toSwapInscriptionModel())).thenReturn(
+            SwapTravelToNewOneResult(false)
+        )
+
+        val response = client.post("/travel/swapTravel") {
+            contentType(ContentType.Application.Json)
+            setBody(dto)
+        }
+        assertEquals(HttpStatusCode.OK, response.status)
+        val result = response.body<SwapTravelToNewOneResult>()
+        assertEquals(SwapTravelToNewOneResult(false), result)
+    }
+
+    @Test
+    fun `SWAP TRAVEL-Returns true if transaction is ok`() = testApplication {
+        configureTestApplication()
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+
+        val dto = SwapTravelDto(1, 2, "usuario@gmail.com")
+
+        `when`(mockSwapTravelToNewOne.run(dto.toSwapInscriptionModel())).thenReturn(
+            SwapTravelToNewOneResult(true)
+        )
+
+        val response = client.post("/travel/swapTravel") {
+            contentType(ContentType.Application.Json)
+            setBody(dto)
+        }
+        assertEquals(HttpStatusCode.OK, response.status)
+        val result = response.body<SwapTravelToNewOneResult>()
+        assertEquals(SwapTravelToNewOneResult(true), result)
+    }
+
+    @Test
+    fun `SWAP TRAVEL-DTO didnt match with operation`() = testApplication {
         configureTestApplication()
         val client = createClient {
             install(ContentNegotiation) {
