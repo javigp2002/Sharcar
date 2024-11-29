@@ -100,9 +100,13 @@ Los cambios que se realizan gradualmente afectan a hitos anteriores debido a que
 demasiado
 exhaustivo para poder saber y coordinar tanto los datos que queremos guardar y los que se van a enviar al front.
 
+Los test nuevos se pueden ver como se ejecutan correctamente:
+![img.png](Tests_api.png)
+
 ## Correcto funcionamiento de logs
 
-Se ha subido el [logger](/logFile.log) que ha ido saliendo a través de la realización del milestone. Sin embargo, como
+Se ha subido el [logger](../../../logFile.log) que ha ido saliendo a través de la realización del milestone. Sin
+embargo, como
 se puede apreciar
 no solo tenemos los que hemos puesto nosotros que están en dos puntos fundamentales:
 
