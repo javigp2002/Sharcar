@@ -3,7 +3,9 @@ package com.sharcar.api
 import com.sharcar.api.dto.AddPassengerDto
 import com.sharcar.api.dto.CreateTravelDto
 import com.sharcar.api.dto.SwapTravelDto
+import com.sharcar.domain.usecases.model.AddPassengerResult
 import com.sharcar.domain.usecases.model.CreationInscriptionResult
+import com.sharcar.domain.usecases.model.SwapTravelToNewOneResult
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
 import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
@@ -31,7 +33,7 @@ fun Route.travelRoutes(
             val addPAssengerDto = call.receive<AddPassengerDto>()
 
             call.application.environment.log.info("Adding passenger ${addPAssengerDto.passengerMail} to travel ${addPAssengerDto.travelId}")
-            val addPassengerResult = addPassengerUsecase.run(addPAssengerDto.toAddPassengerModel())
+            val addPassengerResult: AddPassengerResult = addPassengerUsecase.run(addPAssengerDto.toAddPassengerModel())
 
             call.application.environment.log.info("Adding passenger ${addPAssengerDto.passengerMail} was ${addPassengerResult.success}")
             call.respond(addPassengerResult)
@@ -41,7 +43,8 @@ fun Route.travelRoutes(
             val swapTravelDto = call.receive<SwapTravelDto>()
 
             call.application.environment.log.info("Swapping travel ${swapTravelDto.alreadyCreatedTravelId} to ${swapTravelDto.newTravelId}")
-            val swapTravelResult = swapTravelToNewOneUsecase.run(swapTravelDto.toSwapInscriptionModel())
+            val swapTravelResult: SwapTravelToNewOneResult =
+                swapTravelToNewOneUsecase.run(swapTravelDto.toSwapInscriptionModel())
 
             call.application.environment.log.info("Swapping travel ${swapTravelDto.alreadyCreatedTravelId} to ${swapTravelDto.newTravelId} was ${swapTravelResult.success}")
             call.respond(swapTravelResult)
