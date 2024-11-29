@@ -2,6 +2,7 @@ package com.sharcar.api
 
 import com.sharcar.api.dto.AddPassengerDto
 import com.sharcar.api.dto.CreateTravelDto
+import com.sharcar.api.dto.SwapTravelDto
 import com.sharcar.domain.usecases.model.CreationInscriptionResult
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
@@ -35,6 +36,11 @@ fun Route.travelRoutes(
         }
 
         post("/swapTravel") {
+            val swapTravelDto = call.receive<SwapTravelDto>()
+
+            val swapTravelResult = swapTravelToNewOneUsecase.run(swapTravelDto.toSwapInscriptionModel())
+
+            call.respond(swapTravelResult)
         }
     }
 }
