@@ -32,7 +32,7 @@ fun Route.travelRoutes(
             call.respond(addPassengerResult)
         }
 
-        post("/swapPassenger") {
+        post("/swapTravel") {
         }
     }
 }
