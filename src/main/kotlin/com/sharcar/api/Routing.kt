@@ -1,5 +1,6 @@
 package com.sharcar.api
 
+import com.sharcar.domain.usecases.enterprise.CreateEnterprise
 import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
 import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
@@ -13,10 +14,11 @@ fun Application.configureRouting() {
     val createTravelUsecase by inject<CreateTravelUsecase>()
     val addPassengerToTravel by inject<AddPassengerToTravel>()
     val swapTravelToNewOne by inject<SwapTravelToNewOne>()
+    val createEnterpriseUsecase by inject<CreateEnterprise>()
 
     routing {
         userRoutes(createUserUsecase)
-        enterpriseRoutes()
+        enterpriseRoutes(createEnterpriseUsecase)
         travelRoutes(createTravelUsecase, addPassengerToTravel, swapTravelToNewOne)
     }
 }
