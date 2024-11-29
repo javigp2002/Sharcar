@@ -10,7 +10,6 @@ import io.ktor.server.routing.*
 fun Route.travelRoutes(createTravelUsecase: CreateTravelUsecase) {
     route("/travel") {
         post("/create") {
-
             val travel = call.receive<CreateTravelDto>()
 
             call.application.environment.log.info("Creating travel from ${travel.driverMail}")
@@ -18,9 +17,6 @@ fun Route.travelRoutes(createTravelUsecase: CreateTravelUsecase) {
 
             call.application.environment.log.info("Created travel from ${travel.driverMail}")
             call.respond(createTravelResult)
-
-
-
         }
 
         post("/addPassenger") {
