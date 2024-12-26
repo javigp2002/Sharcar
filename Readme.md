@@ -25,3 +25,6 @@ este hito presenta la configuración de GitHub y la licencia de la misma.
 
 ## [Hito 2](docs/hitos/hito2/Readme.md)
 
+## [Hito 3](docs/hitos/hito3/Readme.md)
+
+

@@ -1,9 +1,10 @@
 package com.sharcar.domain.usecases.model
 
-import com.sharcar.entities.Inscription
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CreationInscriptionResult(
-    val inscription: Inscription?,
+    val inscriptionId: Int?,
     val success: Boolean,
     val alternative: Boolean
 )
