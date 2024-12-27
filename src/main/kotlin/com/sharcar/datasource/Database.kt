@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import java.sql.ResultSet
 import java.sql.SQLException
+import java.sql.Statement
 
 object DatabaseConnection {
     private var dataSource: HikariDataSource
@@ -32,6 +33,24 @@ object DatabaseConnection {
                         statement.setObject(index + 1, param)
                     }
                     statement.executeQuery()
+                }
+            }
+        } catch (e: SQLException) {
+            throw RuntimeException("Error executing query", e)
+        }
+    }
+
+    fun executeInsert(query: String, parameters: List<Any>): Int {
+        try {
+            dataSource.connection.use { connection ->
+                connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS).use { statement ->
+                    parameters.forEachIndexed { index, param ->
+                        statement.setObject(index + 1, param)
+                    }
+                    statement.executeUpdate()
+                    val generatedKeys = statement.generatedKeys
+                    generatedKeys.next()
+                    return generatedKeys.getInt(1)
                 }
             }
         } catch (e: SQLException) {
