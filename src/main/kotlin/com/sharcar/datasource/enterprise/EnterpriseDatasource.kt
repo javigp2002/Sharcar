@@ -37,12 +37,12 @@ class EnterpriseDatasource {
             listOf(id)
         )
 
-        var id = 0
+        var enterpriseId = 0
         var name = ""
         val locations = mutableListOf<Locations>()
 
         while (result.next()) {
-            id = result.getInt("e.id")
+            enterpriseId = result.getInt("e.id")
             name = result.getString("e.name")
 
             result.getInt("L.id")
@@ -58,8 +58,8 @@ class EnterpriseDatasource {
             }
         }
 
-        if (id != 0) {
-            return Enterprise(id, name, locations)
+        if (enterpriseId != 0) {
+            return Enterprise(enterpriseId, name, locations)
         }
 
         return null
