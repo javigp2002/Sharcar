@@ -17,18 +17,22 @@ data class InscriptionEntity(
         fun mapResultSetToInscriptionEntities(resultSet: ResultSet): List<InscriptionEntity> {
             val inscriptions = mutableListOf<InscriptionEntity>()
             while (resultSet.next()) {
-                val inscription = InscriptionEntity(
-                    id = resultSet.getInt("id"),
-                    enterpriseId = resultSet.getInt("enterprise"),
-                    departureTime = resultSet.getTimestamp("departure_time").toLocalDateTime(),
-                    departurePlace = resultSet.getString("departure_place"),
-                    arrivalPlaceId = resultSet.getInt("arrival_place"),
-                    driverEmail = resultSet.getString("driver"),
-                    vehicleId = resultSet.getInt("vehicle")
-                )
+                val inscription = resultToEntity(resultSet)
                 inscriptions.add(inscription)
             }
             return inscriptions
+        }
+
+        fun resultToEntity(resultSet: ResultSet): InscriptionEntity {
+            return InscriptionEntity(
+                id = resultSet.getInt("id"),
+                enterpriseId = resultSet.getInt("enterprise"),
+                departureTime = resultSet.getTimestamp("departure_time").toLocalDateTime(),
+                departurePlace = resultSet.getString("departure_place"),
+                arrivalPlaceId = resultSet.getInt("arrival_place"),
+                driverEmail = resultSet.getString("driver"),
+                vehicleId = resultSet.getInt("vehicle")
+            )
         }
     }
 }
