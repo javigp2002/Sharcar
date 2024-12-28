@@ -21,7 +21,7 @@ class CreateEnterpriseTest{
 
      @Test
      fun `Checks that enterprise is already created`() {
-         `when`(enterpriseDatasourceMock.findById(123456789)).thenReturn(null)
+         `when`(enterpriseDatasourceMock.findById(123456789)).thenAnswer { Enterprise(123456789, "name", emptyList()) }
          val model = CreateEnterpriseModel(123456789, "name")
 
          val exception = assertThrows<IllegalArgumentException> {
@@ -33,7 +33,7 @@ class CreateEnterpriseTest{
      @Test
      fun `Checks that ENTERPRISE is CREATED`() {
          val nif = 987654321
-         `when`(enterpriseDatasourceMock.findById(nif)).thenAnswer { Enterprise(nif, "name", emptyList()) }
+         `when`(enterpriseDatasourceMock.findById(nif)).thenReturn(null)
          `when`(enterpriseDatasourceMock.save(Enterprise(nif, "name", emptyList()))).thenReturn(true)
 
          val model = CreateEnterpriseModel(nif, "name")

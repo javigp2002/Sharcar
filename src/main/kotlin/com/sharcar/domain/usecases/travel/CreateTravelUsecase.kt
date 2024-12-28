@@ -8,6 +8,8 @@ import com.sharcar.domain.usecases.model.CreationInscriptionResult
 import com.sharcar.domain.usecases.model.InscriptionModel
 import com.sharcar.entities.Inscription
 import com.sharcar.models.CreateTravelModel
+import java.time.ZoneOffset
+import kotlin.math.abs
 
 class CreateTravelUsecase(
     private val inscriptionRepository: InscriptionRepository,
@@ -30,9 +32,13 @@ class CreateTravelUsecase(
     }
 
     private fun areCloseInscription(inscription: Inscription, model: InscriptionModel): Boolean {
-        val tenMinutesMilliseconds = 10 * 60 * 1000
+        val tenMinutesInSeconds = 10 * 60
         return inscription.arrivalPlace == model.arrivalPlace &&
-                inscription.departureTime.compareTo(model.departureTime) <= tenMinutesMilliseconds
+                abs(
+                    inscription.departureTime.toEpochSecond(ZoneOffset.UTC) - model.departureTime.toEpochSecond(
+                        ZoneOffset.UTC
+                    )
+                ) <= tenMinutesInSeconds
     }
 
     private fun userIsAbleToSeat(inscription: Inscription): Boolean {
