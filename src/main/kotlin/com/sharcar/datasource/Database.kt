@@ -57,4 +57,19 @@ object DatabaseConnection {
             throw RuntimeException("Error executing query", e)
         }
     }
+
+    fun executeNoGeneratedKey(query: String, parameters: List<Any>): Int {
+        try {
+            dataSource.connection.use { connection ->
+                connection.prepareStatement(query).use { statement ->
+                    parameters.forEachIndexed { index, param ->
+                        statement.setObject(index + 1, param)
+                    }
+                    return statement.executeUpdate()
+                }
+            }
+        } catch (e: SQLException) {
+            throw RuntimeException("Error executing query", e)
+        }
+    }
 }
