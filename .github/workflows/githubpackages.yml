@@ -3,6 +3,8 @@ name: Docker Image into GithubActions
 
 on:
   push:
+    branches:
+      - master
 
 env:
   REGISTRY: ghcr.io
