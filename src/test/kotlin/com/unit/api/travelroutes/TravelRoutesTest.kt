@@ -1,4 +1,4 @@
-package com.api.travelroutes
+package com.unit.api.travelroutes
 
 import com.sharcar.api.dto.AddPassengerDto
 import com.sharcar.api.dto.CreateTravelDto

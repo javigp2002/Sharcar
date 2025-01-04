@@ -1,4 +1,4 @@
-package com.sharcar.usecases.travel
+package com.unit.usecases.travel
 
 import com.sharcar.domain.repository.inscription.InscriptionRepositoryImpl
 import com.sharcar.domain.repository.user.UserRepositoryImpl
