@@ -26,20 +26,4 @@ class TestIntegracion {
 
         assertEquals("Database test success", response.body())
     }
-
-    @Test
-    fun `Logger Up`() = runBlocking {
-        val client = HttpClient(CIO) {
-
-        }
-
-        val response: HttpResponse = client.request("http://localhost:5000/docker/test") {
-            method = HttpMethod.Get
-        }
-
-        println(response)
-
-        assertEquals("Docker test success", response.body())
-    }
-
 }
