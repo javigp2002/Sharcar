@@ -7,11 +7,10 @@ import java.sql.SQLException
 import java.sql.Statement
 
 object DatabaseConnection {
-    private var dataSource: HikariDataSource
 
-    init {
+    private val dataSource: HikariDataSource by lazy {
         val config = HikariConfig().apply {
-            jdbcUrl = "jdbc:mariadb://localhost:3306/sharcardb"
+            jdbcUrl = "jdbc:mariadb://db:3306/sharcardb"
             username = "sharcar"
             password = "sharcar"
             driverClassName = "org.mariadb.jdbc.Driver"
@@ -22,7 +21,7 @@ object DatabaseConnection {
             maxLifetime = 1800000
         }
 
-        dataSource = HikariDataSource(config)
+        HikariDataSource(config)
     }
 
     fun executeQuery(query: String, parameters: List<Any>): ResultSet {
