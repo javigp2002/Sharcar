@@ -1,0 +1,98 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+      logstash:
+        condition: service_started
+    networks:
+      - sharcar-network
+    links:
+      - db
+      - logstash
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
+  db:
+    image: mariadb:lts
+    hostname: 02cb2843eafe
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sharcardb
+      MYSQL_USER: sharcar
+      MYSQL_PASSWORD: sharcar
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - sharcar-network
+    healthcheck:
+      test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.26
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    networks:
+      - sharcar-network
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+
+  logstash:
+    hostname: logstash
+    image: docker.elastic.co/logstash/logstash:7.17.26
+    container_name: logstash
+    ports:
+      - "5044:5044"  # Puerto para recibir logs desde la aplicación
+      - "9600:9600"  # Puerto para la API de monitoreo de Logstash
+      - "5000:5000"  # Puerto para recibir logs desde el contenedor de Logstash
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    depends_on:
+      - elasticsearch
+    networks:
+      - sharcar-network
+    links:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.26
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - sharcar-network
+    links:
+      - elasticsearch
+
+networks:
+  sharcar-network:
+    driver: bridge
+
+volumes:
+  db_data:
