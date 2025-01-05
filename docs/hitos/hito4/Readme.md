@@ -132,11 +132,15 @@ Se puede ver [aquí](https://github.com/javigp2002/Sharcar/pkgs/container/sharca
 Para validar el test de contenedores hay que comprobar que cuando se ejecuta el docker compose y se termina del mismo,
 somos capaces de hacer una llamada
 a este y comprobar que los contenedores se escuchan entre sí y están conectados. Para ello, se ha comprobado el estado
-de la base de datos con un test
-muy simple pero efectivo. Cuando se ejecuta el test se envía un `select 1+1 ` de tal manera que si todo funciona
+de la base de datos con un test muy simple pero efectivo.
+
+Cuando se ejecuta el test se envía un `select 1+1 ` de tal manera que si todo funciona
 correctamente este deberá responder
 satisfactoriamente y, por tanto, devolver a través del _entrypoint_ destinado a ello, que está correcta la base de
 datos.
+
+Esto se puede ver claramente en la ejecución de los tests de integración que se han realizado en el sistema:
+![img_5.png](img_5.png)
 
 Este es un test de integración bastante sencillo pero que cumple a la perfección lo requerido para este hito. La
 ejecución del mismo sería:
