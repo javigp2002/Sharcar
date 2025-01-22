@@ -1,4 +1,4 @@
-package com.sharcar.usecases.travel
+package com.unit.usecases.travel
 
 import com.sharcar.domain.repository.enterprise.EnterpriseRepositoryImpl
 import com.sharcar.domain.repository.inscription.InscriptionRepositoryImpl
@@ -10,7 +10,8 @@ import com.sharcar.entities.*
 import com.sharcar.models.CreateTravelModel
 import org.junit.Before
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
 import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals

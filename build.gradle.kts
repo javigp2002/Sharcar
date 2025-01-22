@@ -3,6 +3,8 @@ val logback_version: String by project
 val ktor_version: String by project
 val junit_version: String = "5.8.1"
 val koin_version: String = "4.0.0"
+val hikari_version: String by project
+val mariadb_version: String by project
 plugins {
     kotlin("jvm") version "2.0.21"
     id("io.ktor.plugin") version "3.0.0"
@@ -38,13 +40,14 @@ dependencies {
     implementation("io.insert-koin:koin-ktor:$koin_version")
     // logback
     implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.1")
 
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-//    // Koin Test features
-//    testImplementation("io.insert-koin:koin-test:$koin_version")
-//    // Koin for JUnit 4
-//    testImplementation("io.insert-koin:koin-test-junit4:$koin_version")
+
+    // db
+    implementation("com.zaxxer:HikariCP:$hikari_version")
+    implementation("org.mariadb.jdbc:mariadb-java-client:$mariadb_version")
 
 }
 

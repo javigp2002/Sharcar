@@ -1,16 +1,17 @@
-package com.sharcartests.domain
+package com.unit.domain
 
 import com.sharcar.domain.repository.user.UserRepository
+import com.sharcar.domain.usecases.user.CreateUserUsecase
 import com.sharcar.entities.User
 import com.sharcar.entities.Vehicle
-import com.sharcar.domain.usecases.user.CreateUserUsecase
 import com.sharcar.exception.SharCarBadRequestException
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import kotlin.test.Test
-import kotlin.test.*
 import org.mockito.ArgumentMatchers.any
+import org.mockito.Mock
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.`when`
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 /*
 HABLAR DE TESTNG

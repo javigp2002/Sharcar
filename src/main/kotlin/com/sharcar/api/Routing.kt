@@ -5,6 +5,7 @@ import com.sharcar.domain.usecases.travel.AddPassengerToTravel
 import com.sharcar.domain.usecases.travel.CreateTravelUsecase
 import com.sharcar.domain.usecases.travel.SwapTravelToNewOne
 import com.sharcar.domain.usecases.user.CreateUserUsecase
+import docker
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.inject
@@ -20,5 +21,6 @@ fun Application.configureRouting() {
         userRoutes(createUserUsecase)
         enterpriseRoutes(createEnterpriseUsecase)
         travelRoutes(createTravelUsecase, addPassengerToTravel, swapTravelToNewOne)
+        docker()
     }
 }

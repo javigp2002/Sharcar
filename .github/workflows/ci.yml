@@ -37,7 +37,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run ktor test
-        run: ./gradlew test --warning-mode none
+        run: ./gradlew :test --tests "com.unit.*"  --warning-mode none
       
   
     
