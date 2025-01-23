@@ -10,7 +10,7 @@ object DatabaseConnection {
 
     private val dataSource: HikariDataSource by lazy {
         val config = HikariConfig().apply {
-            jdbcUrl = "jdbc:mariadb://db:3306/sharcardb"
+            jdbcUrl = "jdbc:mariadb://34.38.142.79:3306/sharcardb"
             username = "sharcar"
             password = "sharcar"
             driverClassName = "org.mariadb.jdbc.Driver"
